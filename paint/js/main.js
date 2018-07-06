@@ -42,9 +42,8 @@ download.onclick = function(){
   a.click()
 }
 
-document.body.ontouchmove = function (e) {
-    e.preventDefault();
-};
+document.addEventListener('touchmove', function(e){e.preventDefault()}, false);
+
 var slider = new Slider('#ex1', {
 	formatter: function(value) {
 		lineWidth = value*1.5;
