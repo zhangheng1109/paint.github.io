@@ -42,7 +42,9 @@ download.onclick = function(){
   a.click()
 }
 
- 
+document.body.ontouchmove = function (e) {
+    e.preventDefault();
+};
 var slider = new Slider('#ex1', {
 	formatter: function(value) {
 		lineWidth = value*1.5;
