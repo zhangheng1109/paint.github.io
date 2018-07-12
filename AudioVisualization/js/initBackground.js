@@ -134,7 +134,7 @@ function userStart() {
   btStart.innerHTML = 'Pause Audio';
   btStart.style.display = 'none';
 
-  audioSetup( 'audio/ak.mp3' );
+  audioSetup( 'audio/IevanPolkka.mp3' );
   animate();
 
 };
@@ -341,7 +341,7 @@ function addCircles() {
   console.log(mp);
   for ( var z = -fov; z < fov; z += 5 ) { 
 
-    var coordinates = drawCircle( centerPosition, 75, 64 );
+    var coordinates = drawCircle( centerPosition, 95,94 );
 
     var circleObj = {};
         circleObj.segmentsOutside = [];
