@@ -1,0 +1,122 @@
+<!DOCTYPE html>  
+<html>  
+	<head lang="en">  
+	    <meta charset="UTF-8">  
+	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>  
+	    <title>视频转字符动画</title>  
+	    <style>  
+	        html, body {  
+	            width: 100%;
+	            height: 100%;  
+	            overflow: hidden;
+	            margin: 0px;
+	            padding: 0px;
+	        } 
+	        
+	        #play{
+	        	position: absolute;
+	        	left: 10px;
+	        	top: 10px;
+	        }
+	        
+	        #chartsContainer{
+	        	height: 100%;
+	            width: 100%;
+	            display: table;
+	        }
+	        
+	        #stage {  
+	            margin:0px auto;  
+	            font-family: Courier New;  
+	            font-size: 16px;  
+	            line-height: 10px;  
+	            text-align: center;
+	            width: 100%;  
+	            display: table-cell;/*img设置成表格元素属性*/
+      			vertical-align: middle;
+	        }  
+	  
+	        #stage img {  
+	            width: 100%;  
+	            height: 100%;  
+	        }  
+	    </style>  
+	    <script src="js/jquery-3.3.1.min.js"></script>
+	    <script src="js/picToChars.js"></script>  
+	</head>  
+	
+	<body>  
+		
+		<video style="display: none;" controls="controls" src="video/testVideoToCharts.mp4"></video>  
+		<input type="file" id="file" style="display: none;">  
+		
+		<button id="play" type="button" click-type="play">播放</button>    
+		
+		<div id="chartsContainer">
+			<pre id="stage"></pre>  
+		</div>
+		
+		
+		<script type="text/javascript">  
+		    var interval, video = document.getElementsByTagName("video")[0],  
+		            stage = document.getElementById("stage"),  
+		            canvas = document.createElement("canvas"),  
+		            captureImage = function () {  
+		                var ctx;  
+		                canvas.width = video.videoWidth;  
+		                canvas.height = video.videoHeight;  
+		                if (canvas.width) {  
+		                    ctx = canvas.getContext('2d');  
+		                    ctx.clearRect(0, 0, canvas.width, canvas.height);  
+		                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);  
+		                    stage.innerText = toChars(ctx, canvas.width, canvas.height, 100);  
+		                }  
+		            },  
+		            beginCapture = function () {  
+		                interval = setInterval(function () {  
+		                    captureImage(1)  
+		                }, 100);  
+		            },  
+		            endCapture = function () {  
+		                if (interval) {  
+		                    clearInterval(interval);  
+		                }  
+		            },  
+		            play = function () {  
+		                /*var file = document.getElementById('file').files[0];  
+		                var url = URL.createObjectURL(file);  
+		                if (!file) {  
+		                    alert("请先选择文件");  
+		                }  
+		                console.log(url);  
+		                video.src = url;  */
+		                video.play();  
+		            }; 
+		     
+		    video.addEventListener("play", beginCapture);  
+		   	video.addEventListener("pause", endCapture);  
+    		video.addEventListener("ended", endCapture);  
+    		video.addEventListener("playing", function () {  
+        		endCapture();  
+        		beginCapture();  
+    		});
+    		
+		   	$("#play").click(function(){
+		   		if($(this).attr("click-type") == "play"){
+		   			$(this).attr("click-type","pause");
+		   			$(this).text("暂停");
+		   			video.play();
+		   			return;
+		   		}
+		   		if($(this).attr("click-type") == "pause"){
+		   			$(this).attr("click-type","play");
+		   			$(this).text("播放");
+		   			video.pause();
+		   			return;
+		   		}
+		   	});
+		   
+		</script>  
+	  
+	</body>  
+</html>  
