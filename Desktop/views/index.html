@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+
+    <h1>just test</h1>
+
+  </body>
+  <script src="/javascripts/jquery.min.js"></script>
+  <script>
+      $(function (){
+
+
+          $.ajax({
+              url:"/mysql/getUsers",
+              type:"post",
+              data:{"test":"11"},
+              success:function(rst){
+                  console.log(rst);
+              },error:function(rst){
+                  console.log(rst);
+              }
+          });
+      });
+  </script>
+</html>
